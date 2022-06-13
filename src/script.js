@@ -138,7 +138,7 @@ const parameters = {
     width: 16,
     height: 9,
     sectionDistance: 15,
-    rotationAngle: Math.PI * 20/180
+    rotationAngle: 0
 }
 
 const offsetGains = {
@@ -272,19 +272,21 @@ const tick = () =>
     scrollY = bodyScrollBar.scrollTop
     const elapsedTime = clock.getElapsedTime()
 
+    camera.rotation.z = parameters.rotationAngle
+
     offset.x = lerp(offset.x, mouse.x, 0.1)
     offset.y = lerp(offset.y, mouse.y, 0.1)
 
     scrollCurrent = lerp(scrollCurrent, scrollY, 0.075)
     scrollOffset.x = lerp(offset.x, mouse.x, 0.1)
 
-    m1.uniforms.uOffset.value.set((mouse.x - offset.x) * offsetGains.mx , (-(mouse.y - offset.y) * offsetGains.my * 16/9) + (-(scrollY- scrollCurrent) * offsetGains.sy ))
+    m1.uniforms.uOffset.value.set((mouse.x - offset.x) * offsetGains.mx , (-(mouse.y - offset.y) * offsetGains.my * 16/9) + ((scrollY- scrollCurrent) * offsetGains.sy ))
     m1.uniforms.uTime.value = elapsedTime
 
-    m2.uniforms.uOffset.value.set((mouse.x - offset.x) * offsetGains.mx , (-(mouse.y - offset.y) * offsetGains.my * 16/9) + (-(scrollY- scrollCurrent) * offsetGains.sy ))
+    m2.uniforms.uOffset.value.set(-(mouse.x - offset.x) * offsetGains.mx , ((mouse.y - offset.y) * offsetGains.my * 16/9) + ((scrollY- scrollCurrent) * offsetGains.sy ))
     m2.uniforms.uTime.value = elapsedTime
 
-    m3.uniforms.uOffset.value.set((mouse.x - offset.x) * offsetGains.mx , (-(mouse.y - offset.y) * offsetGains.my * 16/9) + (-(scrollY- scrollCurrent) * offsetGains.sy ))
+    m3.uniforms.uOffset.value.set((mouse.x - offset.x) * offsetGains.mx , (-(mouse.y - offset.y) * offsetGains.my * 16/9) + ((scrollY- scrollCurrent) * offsetGains.sy ))
     m3.uniforms.uTime.value = elapsedTime
 
     // Update controls
@@ -329,6 +331,20 @@ gsap.fromTo(camera.position, {x: parameters.sectionDistance * 1 * Math.sin(param
     },
     x: parameters.sectionDistance * 2 * Math.sin(parameters.rotationAngle),
     y: -parameters.sectionDistance * 2 * Math.cos(parameters.rotationAngle),
+    ease: 'none'
+})
+
+gsap.fromTo(parameters, {rotationAngle: 0}, {
+    scrollTrigger: {
+        trigger: '.mainSlider',
+        start: () =>  window.innerHeight*0 + ' top',
+        end: () =>  window.innerHeight*3 + ' bottom',
+        // snap: 1, 
+        scrub: true,
+        // pin: false,
+        // markers: true
+    },
+    rotationAngle: Math.PI * 360/180,
     ease: 'none'
 })
 
