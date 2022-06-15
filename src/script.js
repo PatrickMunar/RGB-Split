@@ -7,7 +7,7 @@ import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 import { FontLoader } from 'three/examples/jsm/loaders/FontLoader.js'
 import fragmentShader from './shaders/fragment.glsl'
 import vertexShader from './shaders/vertex.glsl'
-import Scrollbar from 'smooth-scrollbar';
+import Scrollbar from 'smooth-scrollbar'
 import gsap from 'gsap'
 
 // Clear Scroll Memory
@@ -160,7 +160,8 @@ const m1 = new THREE.ShaderMaterial({
         uOffset: {value: new THREE.Vector2(0,0)},
         uTime: {value: 0}
     },
-    transparent: true
+    transparent: true,
+    side: THREE.DoubleSide
 })
 const p1 = new THREE.Mesh(g, m1)
 const p1g = new THREE.Group
@@ -176,7 +177,8 @@ const m2 = new THREE.ShaderMaterial({
         uOffset: {value: new THREE.Vector2(0,0)},
         uTime: {value: 0}
     },
-    transparent: true
+    transparent: true,
+    side: THREE.DoubleSide
 })
 const p2 = new THREE.Mesh(g, m2)
 const p2g = new THREE.Group
@@ -193,7 +195,8 @@ const m3 = new THREE.ShaderMaterial({
         uOffset: {value: new THREE.Vector2(0,0)},
         uTime: {value: 0}
     },
-    transparent: true
+    transparent: true,
+    side: THREE.DoubleSide
 })
 const p3 = new THREE.Mesh(g, m3)
 const p3g = new THREE.Group
@@ -334,7 +337,7 @@ gsap.fromTo(camera.position, {x: parameters.sectionDistance * 1 * Math.sin(param
     ease: 'none'
 })
 
-gsap.fromTo(parameters, {rotationAngle: 0}, {
+gsap.fromTo(parameters, {rotationAngle: - Math.PI * 20/180}, {
     scrollTrigger: {
         trigger: '.mainSlider',
         start: () =>  window.innerHeight*0 + ' top',
@@ -344,9 +347,23 @@ gsap.fromTo(parameters, {rotationAngle: 0}, {
         // pin: false,
         // markers: true
     },
-    rotationAngle: Math.PI * 360/180,
+    rotationAngle: -Math.PI * 10/180,
     ease: 'none'
 })
+
+// gsap.to(PGroups.rotation, {
+//     scrollTrigger: {
+//         trigger: '.mainSlider',
+//         start: () =>  window.innerHeight*1 + ' bottom',
+//         end: () =>  window.innerHeight*2 + ' top',
+//         // snap: 1, 
+//         scrub: true,
+//         // pin: false,
+//         // markers: true
+//     },
+//     y: Math.PI*20/180,
+//     ease: 'none'
+// })
 
 // Event Listeners
 const mouse = {
