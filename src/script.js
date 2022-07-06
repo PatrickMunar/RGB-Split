@@ -277,6 +277,9 @@ const tick = () =>
 
     camera.rotation.z = parameters.rotationAngle
 
+    cameraGroup.position.y = -mouse.y/window.innerHeight
+    cameraGroup.position.x = mouse.x/window.innerWidth
+
     offset.x = lerp(offset.x, mouse.x, 0.1)
     offset.y = lerp(offset.y, mouse.y, 0.1)
 
@@ -286,7 +289,7 @@ const tick = () =>
     m1.uniforms.uOffset.value.set((mouse.x - offset.x) * offsetGains.mx , (-(mouse.y - offset.y) * offsetGains.my * 16/9) + ((scrollY- scrollCurrent) * offsetGains.sy ))
     m1.uniforms.uTime.value = elapsedTime
 
-    m2.uniforms.uOffset.value.set(-(mouse.x - offset.x) * offsetGains.mx , ((mouse.y - offset.y) * offsetGains.my * 16/9) + ((scrollY- scrollCurrent) * offsetGains.sy ))
+    m2.uniforms.uOffset.value.set((mouse.x - offset.x) * offsetGains.mx , (-(mouse.y - offset.y) * offsetGains.my * 16/9) + ((scrollY- scrollCurrent) * offsetGains.sy ))
     m2.uniforms.uTime.value = elapsedTime
 
     m3.uniforms.uOffset.value.set((mouse.x - offset.x) * offsetGains.mx , (-(mouse.y - offset.y) * offsetGains.my * 16/9) + ((scrollY- scrollCurrent) * offsetGains.sy ))
@@ -351,19 +354,19 @@ gsap.fromTo(parameters, {rotationAngle: - Math.PI * 20/180}, {
     ease: 'none'
 })
 
-// gsap.to(PGroups.rotation, {
-//     scrollTrigger: {
-//         trigger: '.mainSlider',
-//         start: () =>  window.innerHeight*1 + ' bottom',
-//         end: () =>  window.innerHeight*2 + ' top',
-//         // snap: 1, 
-//         scrub: true,
-//         // pin: false,
-//         // markers: true
-//     },
-//     y: Math.PI*20/180,
-//     ease: 'none'
-// })
+gsap.fromTo('.mainSlider', {backgroundColor: '#ffffff'}, {
+    scrollTrigger: {
+        trigger: '.mainSlider',
+        start: () =>  window.innerHeight*0 + ' top',
+        end: () =>  window.innerHeight*3 + ' bottom',
+        // snap: 1, 
+        scrub: true,
+        // pin: false,
+        // markers: true
+    },
+    backgroundColor: '#111111',
+    ease: 'none'
+})
 
 // Event Listeners
 const mouse = {
@@ -371,7 +374,7 @@ const mouse = {
     y: 0
 }
 
-window.addEventListener('mousemove', (e) => {
+window.addEventListener('pointermove', (e) => {
     mouse.x = e.clientX;
     mouse.y = e.clientY;
 })

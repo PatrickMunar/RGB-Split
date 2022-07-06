@@ -1,8 +1,8 @@
-A website to incorporate newly-learned shader effects for future reference.
+RGB Splits
 
-Effects so far:
-- RGB Split (Mouse & Scroll)
-- Mesh Deformations (Mouse & Scroll)
+An RGB Split Shader Study
 
-Also get the course on https://threejs-journey.com/.
-It really is the best way to learn Three.js
+Part of the Shaders, Effects & Animations Study by Patrick Munar
+
+npm install
+npm run dev

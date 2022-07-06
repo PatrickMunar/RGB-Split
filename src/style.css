@@ -5,6 +5,15 @@
     box-sizing: border-box;
 }
 
+input,
+textarea,
+button,
+select,
+a,
+div {
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
 html {
     background-color: white;
     font-size: 1vh;
@@ -30,14 +39,13 @@ body::-webkit-scrollbar {
 }
 
 
-@media (orientation:portrait) {
-    html {
-        font-size: 1.25vw;
-    }
+@media screen and (min-width: 1080px) {
+
 }
-@media (orientation:landscape) {
-    html {
-        font-size: 1.25vh;
+
+@media screen and (max-width: 1080px) {
+    .responsive {
+        margin-bottom: 10vh;
     }
 }
 
@@ -59,4 +67,25 @@ body::-webkit-scrollbar {
 .section {
     height: 100vh;
     width: 100vw;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100vw;
+    height: 10vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 50000;
+    font-size: 1.5rem;
+    pointer-events: none;
+}
+
+.link {
+    pointer-events: auto;
+    cursor: pointer;
+    color: white;
 }
